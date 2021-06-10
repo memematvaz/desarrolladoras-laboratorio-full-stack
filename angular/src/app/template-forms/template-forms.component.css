@@ -1,0 +1,23 @@
+.card{
+    width: calc(100%-32px);
+    min-height: 20%;
+    width: 90%;
+    max-width: 60em;
+    margin: 10px auto;
+}
+.text{
+    padding: 10px;
+}
+.text:first-child{
+    padding-left: 0px;
+}
+
+.field{
+    margin: 5px 10px;
+}
+
+.user-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
