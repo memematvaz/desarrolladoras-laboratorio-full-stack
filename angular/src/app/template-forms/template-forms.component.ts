@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { User } from './../user'
 
+import { FormService } from '../services/app.service';
+
 @Component({
   selector: 'app-template-forms',
   templateUrl: './template-forms.component.html',
@@ -25,9 +27,34 @@ export class TemplateFormsComponent implements OnInit {
   position : number = 0
   action   : string = 'insert'
 
-  constructor() { }
+  constructor(
+    private _formService: FormService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.getUserList();
+   }
+
+   public getUserList() {
+    this._formService.registerUser().subscribe(
+      (response: any) => {
+        if (response) {
+          this.listaPersonas = response;
+          this.dataSource.data = this.listaPersonas;
+          this.loading = false;
+        } else {
+          this.sinPersonas = true;
+          this.loading = false;
+        }
+      },
+      (error) => {
+        this.errorMsg = <any>error;
+        if (this.errorMsg != null) {
+        }
+        console.log(this.errorMsg);
+      }
+    );
+  }
 
   registerUser() : void {
 
