@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TemplateFormsComponent } from './template-forms/template-forms.component';
 import { FormsModule } from "@angular/forms";
+import { HttpClientModule } from "@angular/common/http";
 
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
@@ -22,7 +23,7 @@ import { MaterialModule } from './material/material.module';
     BrowserAnimationsModule,
     NoopAnimationsModule,
     MaterialModule,
-   
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

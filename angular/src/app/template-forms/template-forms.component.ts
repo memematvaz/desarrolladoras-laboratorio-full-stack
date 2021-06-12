@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { User } from './../user'
 
+import { AppService } from '../services/app.service';
+
 @Component({
   selector: 'app-template-forms',
   templateUrl: './template-forms.component.html',
@@ -13,6 +15,7 @@ export class TemplateFormsComponent implements OnInit {
   usersList : Array<User>= []
 
   user : User = {
+    _id: '',
     name: '',
     surname: '', 
     age: '', 
@@ -25,22 +28,26 @@ export class TemplateFormsComponent implements OnInit {
   position : number = 0
   action   : string = 'insert'
 
-  constructor() { }
+  constructor(
+    private appService: AppService
+  ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { 
+    this.chargeGetUsers()
+  }
 
 
 
   registerUser() : void {
-
     if( this.action === 'insert'){
-      this.usersList.push( this.user )
+      //this.usersList.push( this.user )
+      this.appService.createUser(this.user).subscribe((user) => this.usersList.push(user));
       
     }else{
       this.usersList[this.position] = this.user
     }
-
     this.user = {
+      _id: '',
       name: '',
       surname: '', 
       age: '', 
@@ -56,8 +63,14 @@ export class TemplateFormsComponent implements OnInit {
     this.action   = 'edit'
     this.position = editPosition
   }
+
   delete( deletePosition : number ) :void {
-    this.usersList.splice( deletePosition , 1 )
+    //this.usersList.splice( deletePosition , 1 )
+    this.appService.deleteUser(this.usersList[deletePosition]).subscribe();
+    this.chargeGetUsers(); 
+  }
+  
+  chargeGetUsers(): void {
+    this.appService.getUsers().subscribe((AppUsers) => (this.usersList = AppUsers))
   }
 }
-
