@@ -40,9 +40,8 @@ export class TemplateFormsComponent implements OnInit {
 
   registerUser() : void {
     if( this.action === 'insert'){
-      //this.usersList.push( this.user )
       console.log('this.user', this.user)
-      this.appService.createUser(this.user).subscribe((user) => (this.usersList.push(user), console.log('user', user)));
+      this.appService.createUser(this.user).subscribe((user) => (this.usersList.push(user)));
       this.chargeGetUsers(); 
     }else{
       this.usersList[this.position] = this.user
@@ -63,11 +62,10 @@ export class TemplateFormsComponent implements OnInit {
     this.user  = this.usersList[editPosition]
     this.action   = 'edit'
     this.position = editPosition
-    this.chargeGetUsers(); 
+    this.appService.updateUser(this.user).subscribe((user) => (this.user  = this.usersList[editPosition]));
   }
 
   delete( deletePosition : number ) :void {
-    //this.usersList.splice( deletePosition , 1 )
     this.appService.deleteUser(this.usersList[deletePosition]).subscribe();
     this.chargeGetUsers(); 
   }
