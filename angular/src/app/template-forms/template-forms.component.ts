@@ -41,8 +41,9 @@ export class TemplateFormsComponent implements OnInit {
   registerUser() : void {
     if( this.action === 'insert'){
       //this.usersList.push( this.user )
-      this.appService.createUser(this.user).subscribe((user) => this.usersList.push(user));
-      
+      console.log('this.user', this.user)
+      this.appService.createUser(this.user).subscribe((user) => (this.usersList.push(user), console.log('user', user)));
+      this.chargeGetUsers(); 
     }else{
       this.usersList[this.position] = this.user
     }
@@ -62,6 +63,7 @@ export class TemplateFormsComponent implements OnInit {
     this.user  = this.usersList[editPosition]
     this.action   = 'edit'
     this.position = editPosition
+    this.chargeGetUsers(); 
   }
 
   delete( deletePosition : number ) :void {
